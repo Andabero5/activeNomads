@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.carousel {
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: calc(100vh - 86px);
+}
+
+.carousel-item img {
+  width: 100%;
+  height: calc(100vh - 86px);
+  object-fit: cover;
+}
