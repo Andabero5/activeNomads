@@ -7,19 +7,34 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="">Inicio</a>
+      <li class="nav-item" *ngIf="!isAuthenticated">
+        <a class="nav-link" routerLink="/">Inicio</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/nosotros">Nosotros</a>
+      <li class="nav-item"*ngIf="!isAuthenticated">
+        <a class="nav-link" routerLink="/nosotros">Nosotros</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" routerLink="/mi-progreso">Mi Progreso</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" routerLink="/eventos">Eventos</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" routerLink="/gimnasios">Gimnasios</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" routerLink="/mis-datos">Mis Datos</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Acceder</a>
+      <li class="nav-item" *ngIf="!isAuthenticated">
+        <a class="nav-link" routerLink="/signin">Acceder</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link btn btn-warning text-dark" href="/signup">Afíliate</a>
+      <li class="nav-item" *ngIf="!isAuthenticated">
+        <a class="nav-link btn btn-warning text-dark" routerLink="/signup">Afíliate</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <button class="nav-link btn btn-danger text-white" (click)="logout()">Cerrar Sesión</button>
       </li>
     </ul>
   </div>

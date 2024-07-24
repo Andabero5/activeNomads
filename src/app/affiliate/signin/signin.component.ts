@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {AuthService} from "../../services/auth.service";
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.css'],
   standalone: true,
   imports: [CommonModule, FormsModule]
 })
-export class SignupComponent {
+export class SigninComponent {
   email: string = '';
   password: string = '';
-  confirmPassword: string = '';
   emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  signup() {
+  signin() {
     if (!this.emailPattern.test(this.email)) {
       console.error('Invalid email format');
       return;
@@ -29,18 +28,15 @@ export class SignupComponent {
       console.error('Password must be at least 6 characters');
       return;
     }
-    if (this.password !== this.confirmPassword) {
-      console.error('Passwords do not match');
-      return;
-    }
 
-    this.authService.signup(this.email, this.password).subscribe({
-      next: (idToken) => {
+    this.authService.signin(this.email, this.password).subscribe({
+      next: (idToken: string) => {
+        console.log('ID Token:', idToken);
         localStorage.setItem('token', idToken);
-        this.router.navigate(['/affiliate-form']);
+        this.router.navigate(['/mi-progreso']);
       },
-      error: (error) => {
-        console.error('Error signing up:', error);
+      error: (error: any) => {
+        console.error('Error signing in:', error);
       }
     });
   }

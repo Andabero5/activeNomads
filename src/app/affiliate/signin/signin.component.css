@@ -1,4 +1,4 @@
-.signup-container {
+.signin-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   background-color: #f4f4f9;
 }
 
-.signup-form {
+.signin-form {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -15,7 +15,7 @@
   max-width: 400px;
 }
 
-.signup-form h2 {
+.signin-form h2 {
   margin-bottom: 20px;
 }
 

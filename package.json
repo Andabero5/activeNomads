@@ -22,6 +22,8 @@
     "@coreui/angular": "^5.2.7",
     "@coreui/coreui": "^5.1.0",
     "bootstrap": "^5.3.3",
+    "chart": "^0.1.2",
+    "chart.js": "^4.4.3",
     "jquery": "^3.7.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

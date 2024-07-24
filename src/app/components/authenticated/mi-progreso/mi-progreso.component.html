@@ -1,0 +1,29 @@
+<div class="mi-progreso-container">
+  <h2>Mi Progreso</h2>
+
+  <div class="chart-container">
+    <canvas id="metricsChart"></canvas>
+  </div>
+
+  <div class="metrics-form">
+    <form (ngSubmit)="addMetric()">
+      <div class="form-group">
+        <label for="weight">Peso (kg):</label>
+        <input type="number" id="weight" [(ngModel)]="newMetric.weight" name="weight" required min="0" step="0.1">
+      </div>
+      <div class="form-group">
+        <label for="measurementDate">Fecha de Medición:</label>
+        <input type="date" id="measurementDate" [(ngModel)]="newMetric.measurementDate" name="measurementDate" required max="{{ today }}">
+      </div>
+      <button type="submit" [disabled]="!newMetric.weight || !newMetric.measurementDate || newMetric.weight <= 0">Añadir Información</button>
+    </form>
+  </div>
+
+  <div class="events-attended">
+    <h3>Eventos Asistidos</h3>
+    <p>Total de eventos asistidos: {{ getTotalEventsAttended() }}</p>
+    <ul>
+      <li *ngFor="let event of events">{{ event.name }} - {{ event.date | date }}</li>
+    </ul>
+  </div>
+</div>
