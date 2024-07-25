@@ -63,23 +63,18 @@ export class AuthService {
   }
 
   addInterestedEvent(token: string, eventId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/interested-events`, {
-      token,
-      eventId
-    });
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/interested-events`, { eventId }, { headers });
   }
 
   removeInterestedEvent(token: string, eventId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/interested-events/${eventId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.apiUrl}/interested-events/${eventId}`, { headers });
   }
 
   markEventAsAttended(token: string, eventId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/attended-events`, {
-      token,
-      eventId
-    });
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/attended-events`, { eventId }, { headers });
   }
 
   getCurrentUser(): Observable<User | null> {

@@ -43,6 +43,7 @@ export class EventosComponent {
   loadInterestedEvents(): void {
     const token = localStorage.getItem('token');
     if (token) {
+      console.log(token)
       this.authService.getInterestedEvents(token).subscribe(events => {
         this.interestedEvents = events;
       });
@@ -65,6 +66,7 @@ export class EventosComponent {
 
   removeInterestedEvent(eventId: string): void {
     const token = localStorage.getItem('token');
+    console.log(token)
     if (token) {
       this.authService.removeInterestedEvent(token, eventId).subscribe(() => {
         this.loadInterestedEvents();
