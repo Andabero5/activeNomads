@@ -1,1 +1,15 @@
-<p>eventos works!</p>
+<div class="events-container">
+  <div class="calendar-container">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+  <div class="interested-events-container">
+    <h2>Eventos que me interesan</h2>
+    <ul>
+      <li *ngFor="let event of interestedEvents">
+        <span>{{ event.title }}</span>
+        <button (click)="removeInterestedEvent(event.id)">Eliminar</button>
+        <button (click)="markAsAttended(event.id)">Asistí</button>
+      </li>
+    </ul>
+  </div>
+</div>

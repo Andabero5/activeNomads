@@ -66,7 +66,7 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
 
   getEvents() {
     if (this.token) {
-      this.authService.getEvents(this.token).subscribe((data: any) => {
+      this.authService.getEvents().subscribe((data: any) => {
         this.events = data.events;
       });
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {
   Auth,
   signInWithCustomToken,
@@ -53,12 +53,33 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/metrics`, { token, weight, measurementDate });
   }
 
-  getEvents(token: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/events`, { params: { token } });
+  getEvents(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/events`);
   }
 
-  addEvent(token: string, event: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/events`, { token, event });
+  getInterestedEvents(token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/interested-events`, { headers });
+  }
+
+  addInterestedEvent(token: string, eventId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/interested-events`, {
+      token,
+      eventId
+    });
+  }
+
+  removeInterestedEvent(token: string, eventId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/interested-events/${eventId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+
+  markEventAsAttended(token: string, eventId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/attended-events`, {
+      token,
+      eventId
+    });
   }
 
   getCurrentUser(): Observable<User | null> {

@@ -1,0 +1,28 @@
+.events-container {
+  display: flex;
+}
+
+.calendar-container {
+  width: 50%;
+}
+
+.interested-events-container {
+  width: 50%;
+  padding-left: 20px;
+}
+
+.interested-events-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.interested-events-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.interested-events-container button {
+  margin-left: 10px;
+}
