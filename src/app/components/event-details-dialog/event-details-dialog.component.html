@@ -1,0 +1,13 @@
+<div class="event-details-container">
+  <h2>Detalles del Evento</h2>
+  <div>
+    <p><strong>Título:</strong> {{ data.title }}</p>
+    <p><strong>Descripción:</strong> {{ data.description }}</p>
+    <p><strong>Fecha:</strong> {{ data.date }}</p>
+  </div>
+  <div class="actions">
+    <button mat-button (click)="addEventToInterested()">Agregar a eventos</button>
+    <button mat-button (click)="close()">Cerrar</button>
+  </div>
+</div>
+
