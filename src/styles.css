@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+.mat-dialog-container {
+  z-index: 1050 !important;
+}
+
+.event-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.event-buttons button {
+  padding: 2px 5px;
+  font-size: 12px;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+.event-buttons button.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.event-buttons button:hover {
+  background: #0056b3;
+}
+

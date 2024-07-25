@@ -76,6 +76,10 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.apiUrl}/attended-events`, { eventId }, { headers });
   }
+  getAttendedEvents(token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/attended-events`, { headers });
+  }
 
   getCurrentUser(): Observable<User | null> {
     return new Observable<User | null>((subscriber) => {

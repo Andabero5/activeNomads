@@ -25,12 +25,15 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "node_modules/leaflet/dist/leaflet.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@coreui/coreui/dist/css/coreui.min.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/leaflet/dist/leaflet.js",
               "node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js"
             ]
           },
@@ -86,6 +89,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@coreui/coreui/dist/css/coreui.min.css",
               "src/styles.css"
