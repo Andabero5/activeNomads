@@ -92,6 +92,17 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/user-info`, { headers });
   }
+  submitReview(token: string, review: any): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/reviews`, review, { headers });
+  }
+
+  getUserReviewsWithEvents(token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/user-reviews-with-events`, { headers });
+  }
+
+
 
   isAuthenticated(): Observable<boolean> {
     return this.getCurrentUser().pipe(

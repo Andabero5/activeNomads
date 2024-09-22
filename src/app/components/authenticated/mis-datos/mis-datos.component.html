@@ -1,1 +1,98 @@
-<p>mis-datos works!</p>
+<div class="mis-datos-container">
+  <h2>Mis Datos</h2>
+
+  <div class="datos-personales">
+    <h3>Datos Personales</h3>
+    <form (ngSubmit)="updateUserData()">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" [(ngModel)]="userData.name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="userData.email" name="email" required disabled>
+      </div>
+      <div class="form-group">
+        <label for="gender">Género:</label>
+        <select id="gender" [(ngModel)]="userData.gender" name="gender" required>
+          <option value="male">Masculino</option>
+          <option value="female">Femenino</option>
+          <option value="other">Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="height">Altura (cm):</label>
+        <input type="number" id="height" [(ngModel)]="userData.height" name="height" required disabled>
+      </div>
+      <div class="form-group">
+        <label for="weight">Peso (kg):</label>
+        <input type="number" id="weight" [(ngModel)]="userData.weight" name="weight" required disabled>
+      </div>
+      <div class="form-group">
+        <label for="age">Edad:</label>
+        <input type="number" id="age" [(ngModel)]="userData.age" name="age" required disabled>
+      </div>
+      <button type="submit">Actualizar Datos</button>
+    </form>
+  </div>
+
+  <div class="progreso-logros">
+    <h3>Progreso y Logros</h3>
+    <ul>
+      <li *ngFor="let metric of metrics">
+        <strong>{{ metric.measurementDate | date: 'dd/MM/yyyy' }}</strong>:
+        Peso: {{ metric.weight }} kg
+      </li>
+    </ul>
+  </div>
+
+  <div class="eventos-interes">
+    <h3>Eventos de Interés</h3>
+    <ul>
+      <li *ngFor="let event of interestedEvents">
+        <strong>{{ event.title }}</strong> - {{ event.date | date: 'dd/MM/yyyy' }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="eventos-asistidos">
+    <h3>Eventos Asistidos</h3>
+    <ul>
+      <li *ngFor="let event of attendedEvents">
+        <strong>{{ event.name }}</strong> - {{ event.date | date: 'dd/MM/yyyy' }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="reseñas">
+    <h3>Enviar Retroalimentación</h3>
+    <form (ngSubmit)="addReview()">
+      <div class="form-group">
+        <label for="event">Evento:</label>
+        <select id="event" [(ngModel)]="newReview.event" name="event" required>
+          <option *ngFor="let event of attendedEvents" [value]="event.id">{{ event.name }} - {{ event.date | date: 'dd/MM/yyyy' }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="comment">Comentario:</label>
+        <textarea id="comment" [(ngModel)]="newReview.comment" name="comment" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="rating">Calificación:</label>
+        <input type="number" id="rating" [(ngModel)]="newReview.rating" name="rating" required min="1" max="5">
+      </div>
+      <button type="submit">Enviar Reseña</button>
+    </form>
+  </div>
+
+  <div class="reseñas-usuario">
+    <h3>Mis Reseñas</h3>
+    <ul>
+      <li *ngFor="let review of userReviews">
+        <strong>{{ review.eventName }}</strong> - {{ review.rating }}/5
+        <p>{{ review.comment }}</p>
+        <p><em>{{ review.createdAt | date: 'dd/MM/yyyy' }}</em></p>
+      </li>
+    </ul>
+  </div>
+</div>
