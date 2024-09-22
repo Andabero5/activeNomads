@@ -20,7 +20,7 @@
     </select>
     <canvas id="imcChart"></canvas>
   </div>
-
+  <h2>Actualizar peso</h2>
   <div class="metrics-form">
     <form (ngSubmit)="addMetric()">
       <div class="form-group">
@@ -35,11 +35,4 @@
     </form>
   </div>
 
-  <div class="events-attended">
-    <h3>Eventos Asistidos</h3>
-    <p>Total de eventos asistidos: {{ getTotalEventsAttended() }}</p>
-    <ul>
-      <li *ngFor="let event of events">{{ event.name }} - {{ event.date | date }}</li>
-    </ul>
-  </div>
 </div>

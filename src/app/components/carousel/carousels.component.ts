@@ -25,15 +25,15 @@ export class CarouselComponents implements OnInit {
   ngOnInit(): void {
     this.slides[0] = {
       id: 0,
-      src: './assets/images/prueba.jpg',
-      title: 'First slide',
-      subtitle: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+      src: './assets/images/idrd.jpeg',
+      title: 'Nuestros aliados',
+      subtitle: 'Contamos con el apoyo de distintas instituciones'
     };
     this.slides[1] = {
       id: 1,
-      src: '../assets/images/logo.png',
-      title: 'Second slide',
-      subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      src: '../assets/images/nomada.jpg',
+      title: 'Creado para nomadas digitales',
+      subtitle: 'Encuentra tu equilibrio entre trabajo y bienestar mientras exploras el mundo.'
     };
     this.slides[2] = {
       id: 2,
@@ -41,5 +41,32 @@ export class CarouselComponents implements OnInit {
       title: 'Third slide',
       subtitle: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
     };
+  }
+
+  ngAfterViewInit(): void {
+    this.changeCarouselControlsStyle();
+  }
+
+  changeCarouselControlsStyle() {
+    const controls = document.querySelectorAll('.carousel-control');
+    controls.forEach((control: any) => {
+      control.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+      control.style.borderRadius = '50%';
+      control.style.width = '50px';
+      control.style.height = '50px';
+      control.style.display = 'flex';
+      control.style.justifyContent = 'center';
+      control.style.alignItems = 'center';
+      control.style.zIndex = '10';
+      control.style.position = 'absolute';
+      control.style.top = '50%';
+      control.style.transform = 'translateY(-50%)';
+
+      if (control.getAttribute('direction') === 'prev') {
+        control.style.left = '50px';
+      } else if (control.getAttribute('direction') === 'next') {
+        control.style.right = '50px';
+      }
+    });
   }
 }

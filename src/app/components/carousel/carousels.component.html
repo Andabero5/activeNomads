@@ -1,5 +1,5 @@
 <div class="carousel">
-  <c-carousel [dark]="true">
+  <c-carousel>
     <c-carousel-indicators></c-carousel-indicators>
     <c-carousel-inner>
       <c-carousel-item *ngFor="let slide of slides">
@@ -15,7 +15,7 @@
         </c-carousel-caption>
       </c-carousel-item>
     </c-carousel-inner>
-    <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
-    <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+    <c-carousel-control class="carousel-control" direction="prev"></c-carousel-control>
+    <c-carousel-control class="carousel-control" direction="next"></c-carousel-control>
   </c-carousel>
 </div>

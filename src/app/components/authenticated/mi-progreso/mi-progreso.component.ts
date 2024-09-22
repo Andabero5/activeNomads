@@ -19,7 +19,6 @@ Chart.register(...registerables);
 })
 export class MiProgresoComponent implements OnInit, OnDestroy {
   metrics: any[] = [];
-  events: any[] = [];
   newMetric = { weight: null, measurementDate: '' };
   today: string = new Date().toISOString().split('T')[0];
   token: string | null = null;
@@ -37,7 +36,6 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
         user.getIdToken().then(token => {
           this.token = token;
           this.getMetrics();
-          this.getEvents();
         });
       } else {
         this.router.navigate(['/signin']);
@@ -73,13 +71,6 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getEvents() {
-    if (this.token) {
-      this.authService.getEvents().subscribe((data: any) => {
-        this.events = data.events;
-      });
-    }
-  }
 
   addMetric() {
     if (this.token) {
@@ -163,9 +154,5 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
         }
       }
     });
-  }
-
-  getTotalEventsAttended(): number {
-    return this.events.length;
   }
 }

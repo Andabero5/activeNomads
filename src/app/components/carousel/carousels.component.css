@@ -14,3 +14,12 @@
   height: calc(100vh - 86px);
   object-fit: cover;
 }
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  padding: 10px 20px; /* Espaciado alrededor del texto */
+  border-radius: 5px; /* Bordes redondeados */
+  display: inline-block; /* Mantener el ancho solo del texto */
+  color: white; /* Color de las letras en blanco */
+}
+
