@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Chart, registerables} from 'chart.js';
+import { Chart, registerables, ChartType } from 'chart.js';
 import { Router } from '@angular/router';
 import {AuthService} from "../../../services/auth.service";
 import {FormsModule} from "@angular/forms";
@@ -23,7 +23,11 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
   newMetric = { weight: null, measurementDate: '' };
   today: string = new Date().toISOString().split('T')[0];
   token: string | null = null;
-  chart: any; // Variable para almacenar la instancia del gráfico
+  weightChart: any;
+  imcChart: any;
+  weightChartType: ChartType = 'bar';
+  imcChartType: ChartType = 'bar';
+  height: number | null = null;
 
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
 
@@ -42,8 +46,11 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.chart) {
-      this.chart.destroy();
+    if (this.weightChart) {
+      this.weightChart.destroy();
+    }
+    if (this.imcChart) {
+      this.imcChart.destroy();
     }
   }
 
@@ -59,7 +66,9 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
             measurementDate: localDate
           };
         }).sort((a: { measurementDate: number; }, b: { measurementDate: number; }) => a.measurementDate - b.measurementDate); // Ordenar las métricas por fecha
-        this.renderChart();
+        this.height = data.height; // Asigna la altura del usuario
+        this.renderWeightChart(); // Renderiza el gráfico de peso
+        this.renderImcChart(); // Renderiza el gráfico de IMC
       });
     }
   }
@@ -84,27 +93,66 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  renderChart() {
-    if (this.chart) {
-      this.chart.destroy();
+  renderWeightChart() {
+    if (this.weightChart) {
+      this.weightChart.destroy();
     }
 
     const labels = this.metrics.map(metric => metric.measurementDate.toLocaleDateString());
-    const data = this.metrics.map(metric => metric.weight);
+    const weightData = this.metrics.map(metric => metric.weight);
 
-    const ctx = document.getElementById('metricsChart') as HTMLCanvasElement;
-    this.chart = new Chart(ctx, {
-      type: 'bar',
+    const ctx = document.getElementById('weightChart') as HTMLCanvasElement;
+    this.weightChart = new Chart(ctx, {
+      type: this.weightChartType, // Tipo de gráfico seleccionado para el peso
       data: {
         labels: labels,
-        datasets: [{
-          label: 'Peso (kg)',
-          data: data,
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: 'Peso (kg)',
+            data: weightData,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            type: 'linear'
+          }
+        }
+      }
+    });
+  }
+
+  renderImcChart() {
+    if (this.imcChart) {
+      this.imcChart.destroy();
+    }
+
+    const labels = this.metrics.map(metric => metric.measurementDate.toLocaleDateString());
+    const heightInMeters = (this.height || 1) / 100;
+    const imcData = this.metrics.map(metric => {
+      const imc = (metric.weight / (heightInMeters * heightInMeters)).toFixed(2);
+      return parseFloat(imc);
+    });
+
+    const ctx = document.getElementById('imcChart') as HTMLCanvasElement;
+    this.imcChart = new Chart(ctx, {
+      type: this.imcChartType, // Tipo de gráfico seleccionado para el IMC
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'IMC',
+            data: imcData,
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1
+          }
+        ]
       },
       options: {
         scales: {

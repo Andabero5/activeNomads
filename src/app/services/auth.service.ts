@@ -88,6 +88,10 @@ export class AuthService {
       });
     });
   }
+  getUserInfo(token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/user-info`, { headers });
+  }
 
   isAuthenticated(): Observable<boolean> {
     return this.getCurrentUser().pipe(

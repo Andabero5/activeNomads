@@ -2,7 +2,23 @@
   <h2>Mi Progreso</h2>
 
   <div class="chart-container">
-    <canvas id="metricsChart"></canvas>
+    <label for="weightChartType">Tipo de gráfico (Peso):</label>
+    <select id="weightChartType" [(ngModel)]="weightChartType" (change)="renderWeightChart()">
+      <option value="bar">Barra</option>
+      <option value="line">Línea</option>
+      <option value="pie">Pastel</option>
+    </select>
+    <canvas id="weightChart"></canvas>
+  </div>
+
+  <div class="chart-container">
+    <label for="imcChartType">Tipo de gráfico (IMC):</label>
+    <select id="imcChartType" [(ngModel)]="imcChartType" (change)="renderImcChart()">
+      <option value="bar">Barra</option>
+      <option value="line">Línea</option>
+      <option value="pie">Pastel</option>
+    </select>
+    <canvas id="imcChart"></canvas>
   </div>
 
   <div class="metrics-form">
