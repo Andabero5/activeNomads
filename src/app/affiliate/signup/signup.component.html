@@ -1,21 +1,21 @@
 <div class="signup-container">
   <form (ngSubmit)="signup()" class="signup-form" #signupForm="ngForm">
-    <h2>Sign Up</h2>
+    <h2>Afiliate</h2>
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" id="email" [(ngModel)]="email" name="email" required #emailField="ngModel">
       <div *ngIf="emailField.touched && !emailPattern.test(email)" class="error">Invalid email format</div>
     </div>
     <div class="form-group">
-      <label for="password">Password:</label>
+      <label for="password">Contrseña:</label>
       <input type="password" id="password" [(ngModel)]="password" name="password" required minlength="6" #passwordField="ngModel">
       <div *ngIf="passwordField.touched && password.length < 6" class="error">Password must be at least 6 characters</div>
     </div>
     <div class="form-group">
-      <label for="confirmPassword">Confirm Password:</label>
+      <label for="confirmPassword">Confirmar contrseña:</label>
       <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required minlength="6" #confirmPasswordField="ngModel">
       <div *ngIf="confirmPasswordField.touched && confirmPassword !== password" class="error">Passwords do not match</div>
     </div>
-    <button type="submit" [disabled]="!signupForm.form.valid || !emailPattern.test(email) || password !== confirmPassword">Sign Up</button>
+    <button type="submit" [disabled]="!signupForm.form.valid || !emailPattern.test(email) || password !== confirmPassword">Afiliarse</button>
   </form>
 </div>

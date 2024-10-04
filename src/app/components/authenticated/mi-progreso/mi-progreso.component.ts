@@ -26,7 +26,7 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
   imcChart: any;
   weightChartType: ChartType = 'bar';
   imcChartType: ChartType = 'bar';
-  height: number | null = null;
+  height: number | null = null; // Altura del usuario
 
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
 
@@ -35,7 +35,8 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
       if (user) {
         user.getIdToken().then(token => {
           this.token = token;
-          this.getMetrics();
+          this.loadUserInfo(); // Cargar la información del usuario
+          this.getMetrics();    // Cargar las métricas del usuario
         });
       } else {
         this.router.navigate(['/signin']);
@@ -52,25 +53,37 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Función para cargar la información del usuario (incluyendo la altura)
+  loadUserInfo() {
+    if (this.token) {
+      this.authService.getUserInfo(this.token).subscribe((data: any) => {
+        // Asignamos la altura del usuario al valor obtenido de su perfil
+        if (data.height && data.height > 0) {
+          this.height = data.height;
+        } else {
+          console.error('La altura no está definida correctamente.');
+        }
+      });
+    }
+  }
+
   getMetrics() {
     if (this.token) {
       this.authService.getMetrics(this.token).subscribe((data: any) => {
         this.metrics = data.metrics.map((metric: any) => {
-          // Convertir la fecha almacenada en UTC a la fecha local
           const localDate = new Date(metric.measurementDate._seconds * 1000);
           localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
           return {
             ...metric,
             measurementDate: localDate
           };
-        }).sort((a: { measurementDate: number; }, b: { measurementDate: number; }) => a.measurementDate - b.measurementDate); // Ordenar las métricas por fecha
-        this.height = data.height; // Asigna la altura del usuario
+        }).sort((a: { measurementDate: number; }, b: { measurementDate: number; }) => a.measurementDate - b.measurementDate);
+
         this.renderWeightChart(); // Renderiza el gráfico de peso
-        this.renderImcChart(); // Renderiza el gráfico de IMC
+        this.renderImcChart();    // Renderiza el gráfico de IMC
       });
     }
   }
-
 
   addMetric() {
     if (this.token) {
@@ -94,7 +107,7 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
 
     const ctx = document.getElementById('weightChart') as HTMLCanvasElement;
     this.weightChart = new Chart(ctx, {
-      type: this.weightChartType, // Tipo de gráfico seleccionado para el peso
+      type: this.weightChartType,
       data: {
         labels: labels,
         datasets: [
@@ -123,8 +136,14 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
       this.imcChart.destroy();
     }
 
+    if (!this.height || this.height <= 0) {
+      console.error('La altura no está disponible para calcular el IMC.');
+      return;
+    }
+
     const labels = this.metrics.map(metric => metric.measurementDate.toLocaleDateString());
-    const heightInMeters = (this.height || 1) / 100;
+    const heightInMeters = this.height / 100; // Convertir altura a metros
+
     const imcData = this.metrics.map(metric => {
       const imc = (metric.weight / (heightInMeters * heightInMeters)).toFixed(2);
       return parseFloat(imc);
@@ -132,7 +151,7 @@ export class MiProgresoComponent implements OnInit, OnDestroy {
 
     const ctx = document.getElementById('imcChart') as HTMLCanvasElement;
     this.imcChart = new Chart(ctx, {
-      type: this.imcChartType, // Tipo de gráfico seleccionado para el IMC
+      type: this.imcChartType,
       data: {
         labels: labels,
         datasets: [
