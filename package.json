@@ -32,8 +32,11 @@
     "bootstrap": "^5.3.3",
     "chart": "^0.1.2",
     "chart.js": "^4.4.3",
+    "glob": "^11.0.0",
+    "inflight": "^1.0.6",
     "jquery": "^3.7.1",
     "leaflet": "^1.9.4",
+    "rimraf": "^6.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
