@@ -16,7 +16,7 @@ import { switchMap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000';
+  private apiUrl = 'https://active-nomads-back.vercel.app';
 
   constructor(private http: HttpClient, private auth: Auth) {}
   signin(email: string, password: string): Observable<any> {
